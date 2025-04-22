@@ -28,6 +28,7 @@ int main(){
     int check;
     do{
         intro();
+        printf(">> ");
         scanf("%d", &check);
         if(check == 5){
             aboutUs();
@@ -153,43 +154,80 @@ void showStudents(a *head){
 }
 
 void searchStudent(a *head){
-    char ID[15];
-    printf("Enter the ID: ");
-    getchar();
-    fgets(ID, sizeof(ID), stdin);
-    ID[strcspn(ID, "\n")] = 0;
-    int count = 0;
-    while(head != NULL){
-        if(strcmp(ID, head -> ID) == 0){
-            count = 1;
-            break;
+    int choice;
+    printf("\n1. Individual\n2. Section-wise\n");
+    printf(">> ");
+    scanf("%d", &choice);
+    if(choice == 1){
+        char sNameID[15];
+        printf("\nEnter the Name or ID: ");
+        getchar();
+        fgets(sNameID, sizeof(sNameID), stdin);
+        sNameID[strcspn(sNameID, "\n")] = 0;
+        int count = 0;
+        while(head != NULL){
+            if(strcmp(sNameID, head -> ID) == 0){
+                count = 1;
+                break;
+            }
+            if(strcmp(sNameID, head -> Name) == 0){
+                count = 1;
+                break;
+            }
+            head = head -> link;
         }
-        head = head -> link;
+        if(count == 1){
+            printf("\nRecord Found...\n");
+            printf("----------------------------------------------\n");
+            printf("Name: %s\n", head -> Name);
+            printf("ID: %s\n", head -> ID);
+            printf("Section: %s\n", head -> Section);
+            printf("Age: %d\n", head -> Age);
+            printf("Contact: %s\n", head -> Contact);
+            printf("----------------------------------------------\n");
+        }
+        else{
+            printf("\nThere is no studentstudent.\n");
+        }
     }
-    if(count == 1){
-        printf("\nRecord Found...\n");
-        printf("----------------------------------------------\n");
-        printf("Name: %s\n", head -> Name);
-        printf("ID: %s\n", head -> ID);
-        printf("Section: %s\n", head -> Section);
-        printf("Age: %d\n", head -> Age);
-        printf("Contact: %s\n", head -> Contact);
-        printf("----------------------------------------------\n");
-    }
-    else{
-        printf("There is no student with the ID.\n");
+    else if(choice == 2){
+        char sSection[10];
+        printf("\nEnter the Section: ");
+        getchar();
+        fgets(sSection, sizeof(sSection), stdin);
+        sSection[strcspn(sSection, "\n")] = 0;
+        int count2 = 0;
+        printf("\n");
+        while(head != NULL){
+           if(strcmp(sSection, head -> Section) == 0){
+                printf("----------------------------------------------\n");
+                printf("Name: %s\n", head -> Name);
+                printf("ID: %s\n", head -> ID);
+                printf("Section: %s\n", head -> Section);
+                printf("Age: %d\n", head -> Age);
+                printf("Contact: %s\n", head -> Contact);
+                printf("----------------------------------------------\n");
+                count2 = 1;
+            }
+            head = head -> link;
+
+        }
+        if(count2 == 0){
+            printf("\nThere is no student in the section\n");
+        }
+
     }
 }
 
 void updateRecord(a *head){
-    char ID[15];
-    printf("Enter the ID (You want to update): ");
+    char nameID[50];
+    printf("Enter the ID or Name (Which one You want to update): ");
     getchar();
-    fgets(ID, sizeof(ID), stdin);
-    ID[strcspn(ID, "\n")] = 0;
+    fgets(nameID, sizeof(nameID), stdin);
+    nameID[strcspn(nameID, "\n")] = 0;
     int count = 0;
     while(head != NULL){
-        if(strcmp(ID, head -> ID) == 0){
+        if(strcmp(nameID, head -> ID) == 0 || strcmp(nameID, head -> Name) == 0){
             printf("What do you want to update: ");
             printf("\n1. Name\n2. ID\n3. Section\n4. Age\n5. Contact\n");
             int choice;

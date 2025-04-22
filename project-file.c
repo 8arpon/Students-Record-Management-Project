@@ -19,6 +19,7 @@ void aboutUs();
 a *newStudent(a *head);
 void showStudents(a *head);
 void searchStudent(a *head);
+void updateRecord(a *head);
 
 int main(){
     printf("\n==================== EncoderZ ====================\n");
@@ -40,6 +41,9 @@ int main(){
         else if(check == 3){
             searchStudent(head);
         }
+        else if(check == 4){
+            updateRecord(head);
+        }
 
     }while(check != 7);
 
@@ -54,9 +58,8 @@ void intro(){
     printf("2. View All Students' Records\n");
     printf("3. Search students info\n");
     printf("4. Update student info\n");
-    printf("5. Remove a student\n");
-    printf("6. About us\n");
-    printf("7. Exit\n\n");
+    printf("5. About us\n");
+    printf("6. Exit\n\n");
 }
 
 void aboutUs(){
@@ -65,7 +68,7 @@ void aboutUs(){
     printf("\n======================== EncoderZ ========================\n\n");
     printf("1. Arpon Sarker\n   Daffodil International University\n   ID: 242-15-964\n");
     printf("2. Abdul Jalil Tayef\n   Daffodil International University\n   ID: 242-15-648\n");
-    printf("3. Ikramul Sami\n   Daffodil International University\n   ID: 242-15-591\n");
+    printf("3. Md. Ikramul Islam Sami\n   Daffodil International University\n   ID: 242-15-591\n");
     printf("4. Shahriar Arefin\n   Daffodil International University\n   ID: 242-15-943\n");
     printf("---------------------------------------------------------------\n\n");
 }
@@ -92,7 +95,7 @@ a *newStudent(a *head){
     fgets(stName, sizeof(stName), stdin);
     stName[strcspn(stName, "\n")] = 0;
 
-    printf("ID (242-15-***): ");
+    printf("ID: ");
     fgets(stID, sizeof(stID), stdin);
     stID[strcspn(stID, "\n")] = 0;
 
@@ -175,5 +178,66 @@ void searchStudent(a *head){
     }
     else{
         printf("There is no student with the ID.\n");
+    }
+}
+
+void updateRecord(a *head){
+    char ID[15];
+    printf("Enter the ID (You want to update): ");
+    getchar();
+    fgets(ID, sizeof(ID), stdin);
+    ID[strcspn(ID, "\n")] = 0;
+    int count = 0;
+    while(head != NULL){
+        if(strcmp(ID, head -> ID) == 0){
+            printf("What do you want to update: ");
+            printf("\n1. Name\n2. ID\n3. Section\n4. Age\n5. Contact\n");
+            int choice;
+            scanf("%d", &choice);
+            if(choice == 1){
+                printf("Enter the Name(To upgrade): ");
+                char uName[50];
+                getchar();
+                fgets(uName, sizeof(uName), stdin);
+                uName[strcspn(uName, "\n")] = 0;
+                strcpy(head -> Name, uName);
+            }
+            else if(choice == 2){
+                printf("Enter the ID(To upgrade): ");
+                char uID[15];
+                getchar();
+                fgets(uID, sizeof(uID), stdin);
+                uID[strcspn(uID, "\n")] = 0;
+                strcpy(head -> ID, uID);
+            }
+            else if(choice == 3){
+                printf("Enter the Section(To upgrade): ");
+                char uSection[10];
+                getchar();
+                fgets(uSection, sizeof(uSection), stdin);
+                uSection[strcspn(uSection, "\n")] = 0;
+                strcpy(head -> Section, uSection);
+            }
+            else if(choice == 4){
+                printf("Enter the Age(To upgrade): ");
+                int uAge;
+                head -> Age = uAge;
+            }
+            else if(choice == 5){
+                printf("Enter the Contact(To upgrade): ");
+                char uContact[15];
+                getchar();
+                fgets(uContact, sizeof(uContact), stdin);
+                uContact[strcspn(uContact, "\n")] = 0;
+                strcpy(head -> Contact, uContact);
+            }
+            printf("\nRecord has been updated successfully...\n");
+            count = 1;
+            
+        }
+        head = head -> link;
+    }
+    if(count == 0){
+        printf("\nNo Record found to update...\n");
     }
 }

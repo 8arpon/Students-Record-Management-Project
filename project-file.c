@@ -29,7 +29,7 @@ int main(){
     do{
         intro();
         scanf("%d", &check);
-        if(check == 6){
+        if(check == 5){
             aboutUs();
         }
         else if(check == 1){
@@ -45,7 +45,7 @@ int main(){
             updateRecord(head);
         }
 
-    }while(check != 7);
+    }while(check != 6);
 
     return 0;
 }
